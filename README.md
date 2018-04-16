@@ -2,7 +2,7 @@
 
 简易文件上传服务,只用配置config就能实现文件上传
 
-
+[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 ## 快速开始
 
