@@ -1,0 +1,10 @@
+coverage/
+npm-debug.log
+/node_modules/
+test/static
+.DS_Store
+*.swp
+*.pyc
+.vscode
+package-lock.json
+yarn.lock

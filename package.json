@@ -1,0 +1,32 @@
+{
+  "name": "koa-file-uploader",
+  "version": "1.0.0",
+  "description": "simple file uploader by koa",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --bail",
+    "test-ci": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "keywords": [
+    "koa",
+    "middleware",
+    "upload",
+    "file"
+  ],
+  "author": "'darkh' <'backtonature@foxmail.com'>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-multer": "^1.0.2",
+    "shelljs": "^0.8.1"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.0",
+    "form-data": "^2.3.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.1.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "request": "^2.85.0",
+    "supertest": "^3.0.0"
+  }
+}
