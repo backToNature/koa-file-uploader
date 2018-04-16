@@ -2,12 +2,6 @@
 
 简易文件上传服务,只用配置config就能实现文件上传
 
-[![NPM version][npm-img]][npm-url]
-[![NPM Downloads][downloads-image]][npm-url]
-[![Build status][travis-img]][travis-url]
-[![Test coverage][coveralls-img]][coveralls-url]
-[![Dependency status][david-img]][david-url]
-[![License][license-img]][license-url]
 
 ## 快速开始
 
