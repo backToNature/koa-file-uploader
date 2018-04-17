@@ -1,15 +1,15 @@
 # koa-file-uploader
 
-Simple File upload Service based on koa2.
+基于koa2的简易文件上传服务
 
 [![Build Status](https://travis-ci.org/backToNature/koa-file-uploader.svg?branch=master)](https://travis-ci.org/backToNature/koa-file-uploader)
 [![Coverage Status](https://coveralls.io/repos/github/backToNature/koa-file-uploader/badge.svg)](https://coveralls.io/github/backToNature/koa-file-uploader)
 
-## install
+## 安装
 
 	npm install koa-file-uploader
 
-## Usage
+## 快速开始
 	
 	const Koa = require('koa');
 	const uploader = require('koa-file-uploader');
@@ -28,10 +28,6 @@ Simple File upload Service based on koa2.
 * 文件存储目录(绝对路径)
 * type: ```String```
 
-### *apiPath
-
-* 服务所在路径
-* type: ```String```
 
 ### cors
 

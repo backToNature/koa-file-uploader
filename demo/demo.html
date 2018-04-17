@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>file upload</title>
+    <style>
+        .content {
+            width: 990px;
+            margin: 0 auto;
+        }
+        .upload {
+            border: 1px dotted #ccc;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+        .upload:hover {
+            border-color: blue; 
+        }
+        .upload p {
+            font-size: 40px;
+            margin: 0;
+            padding: 0;
+            line-height: 102px;
+        }
+        #file {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h3>服务器参数：</h3>
+        <ul>
+            <li>cors: true</li>
+            <li>allowedSize: 80</li>
+            <li>allowedExt: ['.png', '.jpg', '.gif']</li>
+            <li>uploadParam: img</li>
+            <li>apiPath: /api/upload</li>
+            <li>returnPrefix: /assets/</li>
+            <li>saveAsMd5: true</li>
+        </ul>
+        <div class="upload">
+            <input type="file" id="file">
+            <p>+</p>
+        </div>
+    </div>
+    <script>
+        var $file = document.querySelector('#file');
+        $file.addEventListener('change', (e) => {
+            var file = e.target.files[0];
+            var form = new FormData();
+            form.append('img', file);
+            var request = new XMLHttpRequest();
+            request.open("POST", "http://foo.com/submitform.php");
+            request.onload = (res) => {
+                console.log(res);
+            };
+            request.send(formData);
+        });
+    </script>
+</body>
+</html>
