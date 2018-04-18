@@ -141,7 +141,7 @@ module.exports = (config = {}) => {
               fileName: retFileName,
               filePath
             },
-            msg: '上传成功'
+            msg: 'upload success'
         };
         return false;
       } catch (e) {

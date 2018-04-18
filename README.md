@@ -1,9 +1,14 @@
 # koa-file-uploader
 
-Simple File upload Service based on koa2.
-
 [![Build Status](https://travis-ci.org/backToNature/koa-file-uploader.svg?branch=master)](https://travis-ci.org/backToNature/koa-file-uploader)
 [![Coverage Status](https://coveralls.io/repos/github/backToNature/koa-file-uploader/badge.svg)](https://coveralls.io/github/backToNature/koa-file-uploader)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+
+
+Simple File upload Service based on koa2.
+
+[中文文档](https://github.com/backToNature/koa-file-uploader/blob/master/doc/zh-
+cn.md)
 
 ## install
 
@@ -20,22 +25,31 @@ Simple File upload Service based on koa2.
 		destPath: '/dir'
 	};
 	app.use(config);
+	
+## demo
+
+download this project, and execute the following command 
+
+	npm install
+	npm run demo
+
+open[http://127.0.0.1:8000](http://127.0.0.1:8000) and try upload
 
 ## Config
 
 ### *destPath
 
-* 文件存储目录(绝对路径)
+* server file directory(Absolute path)
 * type: ```String```
 
 ### *apiPath
 
-* 服务所在路径
+* api router
 * type: ```String```
 
 ### cors
 
-* 是否允许跨域,单独开启则对所有域名允许跨域
+* Whether cross-domain is allowed
 * type: ```Boolean```
 * default: ```false```
 
@@ -50,7 +64,7 @@ Simple File upload Service based on koa2.
 
 ### corsDomainList
 
-* 跨域域名白名单，需要开启```cors```才能生效
+* Cross-domain whitelist(need to open ```cors```)
 * type: ```String[]```
 
 #### demo
@@ -65,7 +79,7 @@ Simple File upload Service based on koa2.
 
 ### allowedExt
 
-* 上传文件类型白名单(后缀)
+* file type whitelist
 * type: ```String[]```
 
 #### demo
@@ -79,21 +93,21 @@ Simple File upload Service based on koa2.
 
 ### allowedSize
 
-* 上传文件大小限制(单位: KB)
+* Max file size(unit: KB)
 * type: ```Number```
 
 #### demo
 
 	const config = {
 		apiPath: '/api/upload',
-		allowedSize: 30, // 限制文件大小为30kb
+		allowedSize: 30,
 		destPath: '/dir'
 	};
 	app.use(config);
 
 ### saveAsMd5
 
-* 上传文件是否以md5码存储
+* save file as md5 fileName
 * type: ```Boolean```
 * default: ```false```
 
@@ -108,7 +122,7 @@ Simple File upload Service based on koa2.
 
 ### uploadParam
 
-* 文件上传字段名
+* request field name
 * type: ```String```
 * default: ```"file"```
 
@@ -116,14 +130,14 @@ Simple File upload Service based on koa2.
 
 	const config = {
 		apiPath: '/api/upload',
-		uploadParam: 'img', // 以img作为文件上传字段
+		uploadParam: 'img',
 		destPath: '/dir'
 	};
 	app.use(config);
 
 ### returnPrefix
 
-* 返回的url前缀
+* return a file directory to the front end
 * type: ```String```
 * default: ```/```
 

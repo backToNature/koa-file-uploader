@@ -4,6 +4,8 @@ const fileUploader = require('../index.js');
 const path = require('path');
 const Router = require('koa-router');
 const router = new Router();
+const open = require("open");
+
 
 app.host = process.env.IP || 'localhost';
 app.port = process.env.PORT || 8000;
@@ -20,10 +22,20 @@ app.use(fileUploader({
 }));
 
 
+
+const views = require('koa-views');
+ 
 // Must be used before any router is used
-var render = require('koa-views-render');
+
+app.use(views(__dirname));
+
+router.get('/', async (ctx, next) => {
+    await ctx.render('demo.html');
+});
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 const server = app.listen(app.port, app.host, () => {
+    open('http://127.0.0.1:8000');
   console.log('Koa server listening on %s:%d', server.address().address, server.address().port);
-
 });

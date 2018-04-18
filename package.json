@@ -4,9 +4,11 @@
   "description": "simple file uploader by koa",
   "main": "index.js",
   "scripts": {
+    "demo": "node demo/server.js",
     "test": "mocha --reporter spec --bail",
     "test-ci": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
+  "repository": "https://github.com/backToNature/koa-file-uploader",
   "keywords": [
     "koa",
     "middleware",
@@ -28,6 +30,7 @@
     "koa-views": "^6.1.4",
     "mocha": "^5.1.0",
     "mocha-lcov-reporter": "^1.3.0",
+    "open": "^0.0.5",
     "request": "^2.85.0",
     "supertest": "^3.0.0"
   }

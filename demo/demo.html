@@ -37,11 +37,14 @@
             z-index: 1;
             cursor: pointer;
         }
+        #result {
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
     <div class="content">
-        <h3>服务器参数：</h3>
+        <h3>config</h3>
         <ul>
             <li>cors: true</li>
             <li>allowedSize: 80</li>
@@ -55,6 +58,9 @@
             <input type="file" id="file">
             <p>+</p>
         </div>
+        <p>Click and upload</p>
+        <p>response:</p>
+        <p id="result"></p>
     </div>
     <script>
         var $file = document.querySelector('#file');
@@ -63,11 +69,15 @@
             var form = new FormData();
             form.append('img', file);
             var request = new XMLHttpRequest();
-            request.open("POST", "http://foo.com/submitform.php");
-            request.onload = (res) => {
-                console.log(res);
+            request.open("POST", "/api/upload");
+            request.onreadystatechange = (res) => {
+                if (request.readyState === 4 && request.status === 200) {
+                    document.querySelector('#result').innerText = request.responseText;
+                    // let data = JSON.parse(request.responseText);
+                    
+                }
             };
-            request.send(formData);
+            request.send(form);
         });
     </script>
 </body>

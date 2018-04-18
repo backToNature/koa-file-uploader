@@ -4,12 +4,13 @@
 
 [![Build Status](https://travis-ci.org/backToNature/koa-file-uploader.svg?branch=master)](https://travis-ci.org/backToNature/koa-file-uploader)
 [![Coverage Status](https://coveralls.io/repos/github/backToNature/koa-file-uploader/badge.svg)](https://coveralls.io/github/backToNature/koa-file-uploader)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 ## 安装
 
 	npm install koa-file-uploader
 
-## 快速开始
+## 使用
 	
 	const Koa = require('koa');
 	const uploader = require('koa-file-uploader');
@@ -20,12 +21,21 @@
 		destPath: '/dir'
 	};
 	app.use(config);
+	
+## 示例
+
+check工程，并执行以下命令
+
+	npm install
+	npm run demo
+	
+打开[http://127.0.0.1:8000](http://127.0.0.1:8000)即可进行上传
 
 ## Config
 
 ### *destPath
 
-* 文件存储目录(绝对路径)
+* 服务器文件存储目录(绝对路径)
 * type: ```String```
 
 
