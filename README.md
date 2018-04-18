@@ -7,8 +7,7 @@
 
 Simple File upload Service based on koa2.
 
-[中文文档](https://github.com/backToNature/koa-file-uploader/blob/master/doc/zh-
-cn.md)
+[中文文档](https://github.com/backToNature/koa-file-uploader/blob/master/doc/zh-cn.md)
 
 ## install
 
