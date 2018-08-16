@@ -29,13 +29,13 @@ simple file upload server,you can send file by simple config.
 
 ### *destPath
 
-* 文件存储目录(绝对路径)
+* server file directory(Absolute path)
 * type: ```String```
 
 
 ### cors
 
-* 是否允许跨域,单独开启则对所有域名允许跨域
+* Whether cross-domain is allowed
 * type: ```Boolean```
 * default: ```false```
 
@@ -51,7 +51,7 @@ simple file upload server,you can send file by simple config.
 
 ### corsDomainList
 
-* 跨域域名白名单，需要开启```cors```才能生效
+* Cross-domain whitelist(need to open ```cors```)
 * type: ```String[]```
 
 #### demo
@@ -67,7 +67,7 @@ simple file upload server,you can send file by simple config.
 
 ### allowedExt
 
-* 上传文件类型白名单(后缀)
+* file type whitelist
 * type: ```String[]```
 
 #### demo
@@ -82,7 +82,7 @@ simple file upload server,you can send file by simple config.
 
 ### allowedSize
 
-* 上传文件大小限制(单位: KB)
+* Max file size(unit: KB)
 * type: ```Number```
 
 #### demo
@@ -97,7 +97,7 @@ simple file upload server,you can send file by simple config.
 
 ### saveAsMd5
 
-* 上传文件是否以md5码存储
+* save file as md5 fileName
 * type: ```Boolean```
 * default: ```false```
 
@@ -113,7 +113,7 @@ simple file upload server,you can send file by simple config.
 
 ### uploadParam
 
-* 文件上传字段名
+* request field name
 * type: ```String```
 * default: ```"file"```
 
@@ -129,7 +129,7 @@ simple file upload server,you can send file by simple config.
 
 ### returnPrefix
 
-* 返回的url前缀
+* return a file directory to the front end
 * type: ```String```
 * default: ```/```
 
@@ -142,59 +142,3 @@ simple file upload server,you can send file by simple config.
 		destPath: '/dir'
 	};
 	app.use(config);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 不使用router
-
-app.use(koa-file-uploader(config));
-
-## config
-
-### cors
-
-是否允许跨域
-
-### corsDomainList
-
-跨域白名单
-
-### destPath
-
-文件存储目录
-
-### allowedExt
-
-允许的文件类型
-
-### allowedSize
-
-允许的文件大小，默认为20mb
-
-### saveAsMd5
-
-以md5存储文件
-
-### uploadParam
-
-上传字段, 默认为file
-
-### returnPrefix
-
-返回的文件url前缀
-
