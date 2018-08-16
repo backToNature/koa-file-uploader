@@ -22,7 +22,7 @@ simple file upload server,you can send file by simple config.
 		apiPath: '/api/upload'
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ## Config
 
@@ -39,12 +39,13 @@ simple file upload server,you can send file by simple config.
 * default: ```false```
 
 #### demo
-
+	
+	const uploader = require('koa-file-uploader');
 	const config = {
 		cors: true,
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ### corsDomainList
 
@@ -53,12 +54,13 @@ simple file upload server,you can send file by simple config.
 
 #### demo
 
+	const uploader = require('koa-file-uploader');
 	const config = {
 		cors: true,
 		corsDomainList: ['http://a.b.com']
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ### allowedExt
 
@@ -67,11 +69,12 @@ simple file upload server,you can send file by simple config.
 
 #### demo
 
+	const uploader = require('koa-file-uploader');
 	const config = {
 		allowedExt: ['.jpg', '.png'],
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ### allowedSize
 
@@ -80,11 +83,12 @@ simple file upload server,you can send file by simple config.
 
 #### demo
 
+	const uploader = require('koa-file-uploader');
 	const config = {
 		allowedSize: 30, // 限制文件大小为30kb
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ### saveAsMd5
 
@@ -94,11 +98,12 @@ simple file upload server,you can send file by simple config.
 
 #### demo
 
+	const uploader = require('koa-file-uploader');
 	const config = {
 		saveAsMd5: true,
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ### uploadParam
 
@@ -108,11 +113,12 @@ simple file upload server,you can send file by simple config.
 
 #### demo
 
+	const uploader = require('koa-file-uploader');
 	const config = {
 		uploadParam: 'img', // 以img作为文件上传字段
 		destPath: '/dir'
 	};
-	app.use(config);
+	app.use(uploader(config));
 
 ### returnPrefix
 
@@ -122,6 +128,7 @@ simple file upload server,you can send file by simple config.
 
 #### demo
 
+	const uploader = require('koa-file-uploader');
 	const config = {
 		returnPrefix: '/assets/',
 		destPath: '/dir'
