@@ -1,19 +1,16 @@
 # koa-file-uploader
 
-
-simple file upload server,you can send file by simple config.
+基于koa2的简易文件上传服务
 
 [![Build Status](https://travis-ci.org/backToNature/koa-file-uploader.svg?branch=master)](https://travis-ci.org/backToNature/koa-file-uploader)
 [![Coverage Status](https://coveralls.io/repos/github/backToNature/koa-file-uploader/badge.svg)](https://coveralls.io/github/backToNature/koa-file-uploader)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
-[中文文档](https://github.com/backToNature/koa-file-uploader/blob/master/doc/zh-cn.md)
-
-
-## install
+## 安装
 
 	npm install koa-file-uploader
 
-## Usage
+## 使用
 	
 	const Koa = require('koa');
 	const uploader = require('koa-file-uploader');
@@ -24,12 +21,21 @@ simple file upload server,you can send file by simple config.
 		destPath: '/dir'
 	};
 	app.use(uploader(config));
+	
+## 示例
+
+check工程，并执行以下命令
+
+	npm install
+	npm run demo
+	
+打开[http://127.0.0.1:8000](http://127.0.0.1:8000)即可进行上传
 
 ## Config
 
 ### *destPath
 
-* 文件存储目录(绝对路径)
+* 服务器文件存储目录(绝对路径)
 * type: ```String```
 
 
@@ -40,11 +46,11 @@ simple file upload server,you can send file by simple config.
 * default: ```false```
 
 #### demo
-	
+
 	const uploader = require('koa-file-uploader');
 	const config = {
-		apiPath: '/api/upload',
 		cors: true,
+		apiPath: '/api/upload',
 		destPath: '/dir'
 	};
 	app.use(uploader(config));
@@ -58,8 +64,8 @@ simple file upload server,you can send file by simple config.
 
 	const uploader = require('koa-file-uploader');
 	const config = {
-		apiPath: '/api/upload',
 		cors: true,
+		apiPath: '/api/upload',
 		corsDomainList: ['http://a.b.com']
 		destPath: '/dir'
 	};
@@ -141,60 +147,4 @@ simple file upload server,you can send file by simple config.
 		returnPrefix: '/assets/',
 		destPath: '/dir'
 	};
-	app.use(config);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 不使用router
-
-app.use(koa-file-uploader(config));
-
-## config
-
-### cors
-
-是否允许跨域
-
-### corsDomainList
-
-跨域白名单
-
-### destPath
-
-文件存储目录
-
-### allowedExt
-
-允许的文件类型
-
-### allowedSize
-
-允许的文件大小，默认为20mb
-
-### saveAsMd5
-
-以md5存储文件
-
-### uploadParam
-
-上传字段, 默认为file
-
-### returnPrefix
-
-返回的文件url前缀
-
+	app.use(uploader(config));
