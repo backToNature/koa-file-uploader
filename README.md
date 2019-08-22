@@ -133,6 +133,11 @@ simple file upload server,you can send file by simple config.
 * type: ```String```
 * default: ```/```
 
+### fnComplete
+
+* you can handle file after upload
+* type: ```Function```
+
 #### demo
 
 	const uploader = require('koa-file-uploader');

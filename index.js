@@ -7,19 +7,18 @@ const shell = require('shelljs');
 
 const md5 = (filePath) => {
   return new Promise((resolve, reject) => {
-      const start = new Date().getTime();
-      const stream = fs.createReadStream(filePath);
-      const md5sum = crypto.createHash('md5');
-      stream.on('data', (chunk) => {
-          md5sum.update(chunk);
-      });
-      stream.on('end', () => {
-          str = md5sum.digest('hex').toUpperCase();
-          resolve(str);
-      });
-      stream.on('error', (err) => {
-          reject(err);
-      });
+    const stream = fs.createReadStream(filePath);
+    const md5sum = crypto.createHash('md5');
+    stream.on('data', (chunk) => {
+        md5sum.update(chunk);
+    });
+    stream.on('end', () => {
+        str = md5sum.digest('hex').toUpperCase();
+        resolve(str);
+    });
+    stream.on('error', (err) => {
+        reject(err);
+    });
   });
 };
 
@@ -35,6 +34,7 @@ const md5 = (filePath) => {
  * @param {String} [config.uploadParam="file"] - post字段,默认为file
  * @param {Boolean} [config.saveAsMd5=false] - 以md5存储文件
  * @param {String} [config.returnPrefix=""] - 返回的文件url路径
+ * @param {Function} [config.fnComplete=] - 上传完成后不直接返回，走回调
  */
 module.exports = (config = {}) => {
   return async (ctx, next) => {
@@ -62,8 +62,8 @@ module.exports = (config = {}) => {
         }
       }
     });
-  
-    const upload = multer({
+
+    const multerConfig = {
       fileFilter(req, file, cb) {
         let extName = path.extname(file.originalname);
         if (config.allowedExt && config.allowedExt.length) {
@@ -78,11 +78,14 @@ module.exports = (config = {}) => {
           cb(null, true);
         }
       },
-      limits: {
-          fileSize: config.allowedSize * 1000
-      },
       storage
-    });
+    };
+
+    if (config.allowedSize) {
+      multerConfig.limits = { fileSize: config.allowedSize * 1000 };
+    }
+  
+    const upload = multer(multerConfig);
 
     if (config.cors === true) {
       ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -96,8 +99,6 @@ module.exports = (config = {}) => {
       } else {
         ctx.set('Access-Control-Allow-Origin', ctx.headers.origin);
       }
-    } else {
-      // return await next();
     }
 
     const doUpload = async (ctx, next) => {
@@ -109,6 +110,8 @@ module.exports = (config = {}) => {
         }
         let filePath;
         let retFileName;
+        let absolutePath;
+        let msgObj = {};
         if (config.saveAsMd5 === true) {
             try {
               const md5Code = await md5(file.path);
@@ -116,33 +119,46 @@ module.exports = (config = {}) => {
               const newFileName = `${md5Code}${extName}`;
               const newFileNamePath = path.join(file.destination, newFileName);
               shell.mv(file.path, newFileNamePath);
+              absolutePath = newFileNamePath;
               if (config.destPath && !fs.existsSync(config.destPath)) {
                 shell.mkdir(path.join(config.destPath));
               }
               if (config.destPath && fs.existsSync(config.destPath)) {
-                  shell.mv(newFileNamePath, path.join(config.destPath, newFileName));
+                  absolutePath = path.join(config.destPath, newFileName);
+                  shell.mv(newFileNamePath, absolutePath);
               }
               retFileName = newFileName;
               filePath = config.returnPrefix ? config.returnPrefix : '';
             } catch (e) {
-              ctx.body = {
-                  status: 3,
-                  data: {},
-                  msg: 'check md5 failed'
+              msgObj = {
+                status: 3,
+                data: {},
+                msg: 'check md5 failed'
               };
+              ctx.body = msgObj;
+              return false;
             }
         } else {
           retFileName = file.filename;
           filePath = config.returnPrefix ? config.returnPrefix : '';
         }
-        ctx.body = {
-            status: 0,
-            data: {
-              fileName: retFileName,
-              filePath
-            },
-            msg: 'upload success'
+
+        msgObj = {
+          status: 0,
+          data: {
+            fileName: retFileName,
+            filePath
+          },
+          msg: 'upload success'
         };
+
+        if (typeof config.fnComplete === 'function') {
+          msgObj.data.absolutePath = absolutePath;
+          ctx.uploadFileInfo = msgObj;
+          await config.fnComplete(ctx, next);
+        } else {
+          ctx.body = msgObj;
+        }
         return false;
       } catch (e) {
           switch (e.code) {
