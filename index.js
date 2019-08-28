@@ -38,6 +38,29 @@ const md5 = (filePath) => {
  */
 module.exports = (config = {}) => {
   return async (ctx, next) => {
+    const corsHandler = async function (config, next) {
+      if (config.cors === true) {
+        ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        ctx.set('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+        if (config.corsDomainList && config.corsDomainList.length > 0) {
+          if (config.corsDomainList.indexOf(ctx.headers.origin) >= 0) {
+            ctx.set('Access-Control-Allow-Origin', config.corsDomainList.join(','));
+          } else {
+            return await next();
+          }
+        } else {
+          ctx.set('Access-Control-Allow-Origin', ctx.headers.origin);
+        }
+      }
+    }
+    // handle options request
+    if (ctx.method == 'OPTIONS') {
+      corsHandler(config, next);
+      ctx.body = {
+        status: 0,
+        msg: ''
+      }
+    }
     if (ctx.method !== 'POST') {
       await next();
       return false;
@@ -87,19 +110,7 @@ module.exports = (config = {}) => {
   
     const upload = multer(multerConfig);
 
-    if (config.cors === true) {
-      ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-      ctx.set('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-      if (config.corsDomainList && config.corsDomainList.length > 0) {
-        if (config.corsDomainList.indexOf(ctx.headers.origin) >= 0) {
-          ctx.set('Access-Control-Allow-Origin', config.corsDomainList.join(','));
-        } else {
-          return await next();
-        }
-      } else {
-        ctx.set('Access-Control-Allow-Origin', ctx.headers.origin);
-      }
-    }
+    corsHandler(config, next);
 
     const doUpload = async (ctx, next) => {
       try {
