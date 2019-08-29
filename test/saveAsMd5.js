@@ -14,7 +14,7 @@ describe('saveAsMd5', () => {
       done
     }, (data, server) => {
       if (data && data.status === 0) {
-        if (data.data && data.data.fileName === 'B8928A731D228C4F94B52573D162BDAE.jpg') {
+        if (data.data && data.data.fileName === 'b8928a731d228c4f94b52573d162bdae.jpg') {
             done();
             return;
         }
