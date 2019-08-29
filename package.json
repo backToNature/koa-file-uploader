@@ -1,6 +1,6 @@
 {
   "name": "koa-file-uploader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "simple file uploader by koa",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "koa": "^2.5.0",
     "koa-multer": "^1.0.2",
+    "md5-file": "^4.0.0",
     "shelljs": "^0.8.1"
   },
   "devDependencies": {

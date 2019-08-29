@@ -1,27 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const crypto = require('crypto');
 const multer = require('koa-multer');
 const shell = require('shelljs');
-
-const md5 = (filePath) => {
-  return new Promise((resolve, reject) => {
-    const stream = fs.createReadStream(filePath);
-    const md5sum = crypto.createHash('md5');
-    stream.on('data', (chunk) => {
-        md5sum.update(chunk);
-    });
-    stream.on('end', () => {
-        str = md5sum.digest('hex').toUpperCase();
-        resolve(str);
-    });
-    stream.on('error', (err) => {
-        reject(err);
-    });
-  });
-};
-
+const md5File = require('md5-file');
 /**
  * @description simple file upload
  * @param {Object} config - 上传配置项
@@ -125,7 +107,7 @@ module.exports = (config = {}) => {
         let msgObj = {};
         if (config.saveAsMd5 === true) {
             try {
-              const md5Code = await md5(file.path);
+              const md5Code = md5File.sync(file.path);
               const extName = path.extname(file.filename);
               const newFileName = `${md5Code}${extName}`;
               const newFileNamePath = path.join(file.destination, newFileName);
