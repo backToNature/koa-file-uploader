@@ -1,6 +1,6 @@
 {
   "name": "koa-file-uploader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "simple file uploader by koa",
   "main": "index.js",
   "scripts": {

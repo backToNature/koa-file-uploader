@@ -133,6 +133,7 @@ module.exports = (config = {}) => {
             }
         } else {
           retFileName = file.filename;
+          absolutePath = path.join(file.destination, retFileName);
           filePath = config.returnPrefix ? config.returnPrefix : '';
         }
 
